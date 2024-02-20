@@ -1,0 +1,46 @@
+[System]
+Name='Mamdani'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=9
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Suhu'
+Range=[0 250]
+NumMFs=3
+MF1='Rendah':'trapmf',[0 0 150 170]
+MF2='Sedang':'trapmf',[160 170 180 190]
+MF3='Tinggi':'trapmf',[190 200 250 250]
+
+[Input2]
+Name='Waktu__Pembakaran'
+Range=[0 350]
+NumMFs=3
+MF1='Singkat':'trapmf',[0 0 60 120]
+MF2='Sedang':'trimf',[120 150 180]
+MF3='Lama':'trapmf',[180 210 350 350]
+
+[Output1]
+Name='Tingkat__Kematangan'
+Range=[0 15]
+NumMFs=2
+MF1='Tidak__Matang':'trapmf',[0 0 1 6]
+MF2='Matang':'trapmf',[5 10 15 15]
+
+[Rules]
+1 1, 1 (1) : 1
+1 2, 1 (1) : 1
+1 3, 1 (1) : 1
+2 1, 1 (1) : 1
+2 2, 1 (1) : 1
+2 3, 2 (1) : 1
+3 1, 1 (1) : 1
+3 2, 2 (1) : 1
+3 3, 2 (1) : 1
