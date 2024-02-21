@@ -101,7 +101,9 @@ function edit5_Callback(hObject, eventdata, handles)
 % hObject    handle to edit5 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+Suhu = str2num(get(hObject,'string'));
+handles.Suhu = Suhu %panggil fungsi bawaan
+guidata(hObject, handles);
 % Hints: get(hObject,'String') returns contents of edit5 as text
 %        str2double(get(hObject,'String')) returns contents of edit5 as a double
 
@@ -124,7 +126,9 @@ function edit6_Callback(hObject, eventdata, handles)
 % hObject    handle to edit6 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+Waktu_Pembakaran = str2num(get(hObject,'string'));
+handles.Waktu_Pembakaran = Waktu_Pembakaran %panggil fungsi bawaan
+guidata(hObject, handles);
 % Hints: get(hObject,'String') returns contents of edit6 as text
 %        str2double(get(hObject,'String')) returns contents of edit6 as a double
 
@@ -147,9 +151,20 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+Proses = readfis('Mamdani');
+hasil = evalfis([handles.Suhu handles.Waktu_Pembakaran],Proses);
+set(handles.edit7,'string',hasil);
 
-
-
+if hasil <= 5{
+        msgbox('tidak_matang');
+        }
+elseif hasil >= 6 && hasil <= 10 {
+        msgbox('matang');
+        }
+elseif hasil > 5 && hasil < 6{
+        msgbox('sulit ditentukan');
+        }
+end
 function edit7_Callback(hObject, eventdata, handles)
 % hObject    handle to edit7 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
