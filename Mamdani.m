@@ -22,7 +22,7 @@ function varargout = Mamdani(varargin)
 
 % Edit the above text to modify the response to help Mamdani
 
-% Last Modified by GUIDE v2.5 20-Feb-2024 11:00:36
+% Last Modified by GUIDE v2.5 22-Feb-2024 11:51:06
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -155,16 +155,24 @@ Proses = readfis('Mamdani');
 hasil = evalfis([handles.Suhu handles.Waktu_Pembakaran],Proses);
 set(handles.edit7,'string',hasil);
 
-if hasil <= 5{
-        msgbox('tidak_matang');
-        }
-elseif hasil >= 6 && hasil <= 10 {
-        msgbox('matang');
-        }
-elseif hasil > 5 && hasil < 6{
-        msgbox('sulit ditentukan');
-        }
+%if hasil <= 5{
+%        msgbox('tidak_matang');
+%        }
+%elseif hasil >= 6 && hasil <= 10 {
+%        msgbox('matang');
+%        }
+%elseif hasil > 5 && hasil < 6{
+%        msgbox('sulit ditentukan');
+%        }
+%end
+if hasil <= 5
+    set(handles.edit8,'string','tidak_matang');
+elseif hasil >= 6 && hasil <= 10
+    set(handles.edit8,'string','matang');
+elseif hasil > 5 && hasil < 6
+    set(handles.edit8,'string','???');
 end
+
 function edit7_Callback(hObject, eventdata, handles)
 % hObject    handle to edit7 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -192,10 +200,36 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+set(handles.edit5,'string','');
+set(handles.edit6,'string','');
+set(handles.edit7,'string','');
+set(handles.edit8,'string','');
 
 % --- Executes on button press in pushbutton3.
 function pushbutton3_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+close;
+
+
+function edit8_Callback(hObject, eventdata, handles)
+% hObject    handle to edit8 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit8 as text
+%        str2double(get(hObject,'String')) returns contents of edit8 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit8_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit8 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
